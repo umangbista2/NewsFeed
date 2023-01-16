@@ -28,7 +28,17 @@ final class URLSessionManager: NetworkManager, Logger {
                 return
             }
             
-            let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 60)
+            var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 60)
+            
+            // TODO: API response caching
+            /*
+            request.cachePolicy = .returnCacheDataDontLoad
+             
+            // If network is available, then ignore cache data
+            if networkStatus == available {
+                urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+            }
+            */
             
             let task = self?.session.dataTask(with: request) { data, response, error in
                 guard error == nil else {
