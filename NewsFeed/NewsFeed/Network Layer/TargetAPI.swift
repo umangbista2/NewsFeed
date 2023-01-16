@@ -11,8 +11,6 @@ import Foundation
 protocol TargetAPI {
     var request: String { get }
     var method: APIMethod { get }
-    
-    func sampleData(_ testCase: NewsAPITestCase) -> Data
 }
 
 enum APIMethod {

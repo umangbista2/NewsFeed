@@ -9,18 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.openURL) var openURL
-
+    
     @StateObject
     var viewModel: HomeViewModel
     
     init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
         NavigationView {
             content
-            .navigationTitle(Text("Top Headlines"))
+                .navigationTitle(Text("Top Headlines"))
         }
         .onAppear {
             viewModel.fetchTopHeadlines()
@@ -52,11 +52,16 @@ struct NewsListRow: View {
         VStack(alignment: .leading) {
             HStack {
                 if let url = news.imageURL {
-                    AsyncImage(url: url) { image in
-                        image.image?.resizable()
+                    AsyncImage(url: url, content: { image in
+                        image.resizable()
                             .frame(width: 50, height: 50)
-                    }
+                    }, placeholder: {
+                        Rectangle()
+                            .fill(Color.gray)
+                            .frame(width: 50, height: 50)
+                    })
                 }
+                
                 VStack(alignment: .leading) {
                     Text(news.title)
                         .font(.headline)

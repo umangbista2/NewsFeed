@@ -56,33 +56,9 @@ enum NewsAPI: TargetAPI {
             ]
         }
     }
-    
-    func sampleData(_ testCase: NewsAPITestCase) -> Data {
-        switch self {
-        case .topHeadlines:
-            if testCase == .fetchHeadlines {
-                return stubbedResponse("newTopHeadlines")
-            }
-            return stubbedResponse("emptyResponse")
-        }
-    }
 }
 
-func stubbedResponse(_ fileName: String) -> Data! {
-    @objc class TestClass: NSObject { }
-    
-    let bundle = Bundle(for: TestClass.self)
-    let path = bundle.path(forResource: fileName, ofType: "json")
-    return (try? Data(contentsOf: URL(fileURLWithPath: path!)))
-}
 
-protocol APITestCase {
-    
-}
-
-enum NewsAPITestCase: APITestCase {
-    case fetchHeadlines
-}
 
 extension Dictionary where Key : StringProtocol, Value : StringProtocol {
     var queryString: String {
